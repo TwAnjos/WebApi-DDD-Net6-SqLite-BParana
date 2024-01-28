@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class DbTeste : Migration
+    public partial class V1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,6 +52,20 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cliente",
+                columns: table => new
+                {
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomeCompleto = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliente", x => x.ClienteId);
                 });
 
             migrationBuilder.CreateTable(
@@ -264,6 +278,28 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PhoneCliente",
+                columns: table => new
+                {
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PhoneClienteId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    DDD = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCellPhone = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhoneCliente", x => x.PhoneClienteId);
+                    table.ForeignKey(
+                        name: "FK_PhoneCliente_Cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Cliente",
+                        principalColumn: "ClienteId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -300,6 +336,11 @@ namespace Infrastructure.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PhoneCliente_ClienteId",
+                table: "PhoneCliente",
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_MESSAGE_UserId",
@@ -342,6 +383,9 @@ namespace Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "PhoneCliente");
+
+            migrationBuilder.DropTable(
                 name: "TB_MESSAGE");
 
             migrationBuilder.DropTable(
@@ -358,6 +402,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Cliente");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

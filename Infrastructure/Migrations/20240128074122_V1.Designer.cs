@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ContextBase))]
-    [Migration("20231118042743_DbTeste")]
-    partial class DbTeste
+    [Migration("20240128074122_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,6 +107,23 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Entities.Entities.Cliente", b =>
+                {
+                    b.Property<int>("ClienteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeCompleto")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ClienteId");
+
+                    b.ToTable("Cliente");
+                });
+
             modelBuilder.Entity("Entities.Entities.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -145,6 +162,33 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TB_MESSAGE");
+                });
+
+            modelBuilder.Entity("Entities.Entities.PhoneCliente", b =>
+                {
+                    b.Property<int>("PhoneClienteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("ClienteId")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("DDD")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCellPhone")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PhoneClienteId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("PhoneCliente");
                 });
 
             modelBuilder.Entity("Entities.Entities.PokemonsCapturados", b =>
@@ -423,6 +467,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
+            modelBuilder.Entity("Entities.Entities.PhoneCliente", b =>
+                {
+                    b.HasOne("Entities.Entities.Cliente", null)
+                        .WithMany("PhoneCliente")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Entities.Entities.PokemonsCapturados", b =>
                 {
                     b.HasOne("Entities.Entities.ApplicationUser", "ApplicationUser")
@@ -506,6 +559,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("Telefone");
 
                     b.Navigation("User_Endereco");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Cliente", b =>
+                {
+                    b.Navigation("PhoneCliente");
                 });
 #pragma warning restore 612, 618
         }
