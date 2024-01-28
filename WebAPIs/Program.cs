@@ -64,6 +64,7 @@ builder.Services.AddSingleton<ITelefoneInfrasctructure, RepositoryTelefone>();
 builder.Services.AddSingleton<IUserEnderecosInfrastructure, RepositoryUserEnderecos>();
 builder.Services.AddSingleton<IFileInfrastructure, RepositoryFile>(); 
 builder.Services.AddSingleton<IClienteInfrastructure, RepositoryCliente>();
+builder.Services.AddSingleton<IPhoneClienteInfrastructure, RepositoryPhoneCliente>();
 #endregion
 
 //JWT Tokens

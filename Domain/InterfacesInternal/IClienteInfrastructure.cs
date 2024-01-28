@@ -14,5 +14,6 @@ namespace Domain.InterfacesInternal
         Task<List<Cliente>> GetAllClientes(Expression<Func<Cliente,bool>> expression);
         Task<List<Cliente>> GetAllClientesByDDDNumero(string numero);
         Task<List<Cliente>> GetAllClientesById(List<PhoneCliente> phones);
+        Task<Cliente> GetByEmailAsync(string emailAntigo);
     }
 }
