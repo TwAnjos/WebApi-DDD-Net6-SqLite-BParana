@@ -21,6 +21,8 @@ namespace Infrastructure.Configuration
         public DbSet<Telefone> Telefone { get; set; }
         public DbSet<UserEndereco> UserEndereco { get; set; }
         public DbSet<UserShawandpartners> UserShawandpartners { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<PhoneCliente> PhoneCliente { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

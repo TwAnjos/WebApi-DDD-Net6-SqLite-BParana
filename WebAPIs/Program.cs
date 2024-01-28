@@ -53,6 +53,7 @@ builder.Services.AddSingleton<IServicePokemon, ServicePokemon>();
 builder.Services.AddSingleton<IServiceTelefone, ServiceTelefone>();
 builder.Services.AddSingleton<IServiceUserEnderecos, ServiceUserEnderecos>();
 builder.Services.AddSingleton<IServiceFile, ServiceFile>();
+builder.Services.AddSingleton<IServiceCliente, ServiceCliente>();
 
 // Interface and Repository
 builder.Services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGenerics<>));
@@ -62,6 +63,8 @@ builder.Services.AddSingleton<IPokemonInfrastructure, RepositoryPokemon>();
 builder.Services.AddSingleton<ITelefoneInfrasctructure, RepositoryTelefone>();
 builder.Services.AddSingleton<IUserEnderecosInfrastructure, RepositoryUserEnderecos>();
 builder.Services.AddSingleton<IFileInfrastructure, RepositoryFile>(); 
+builder.Services.AddSingleton<IClienteInfrastructure, RepositoryCliente>();
+builder.Services.AddSingleton<IPhoneClienteInfrastructure, RepositoryPhoneCliente>();
 #endregion
 
 //JWT Tokens
