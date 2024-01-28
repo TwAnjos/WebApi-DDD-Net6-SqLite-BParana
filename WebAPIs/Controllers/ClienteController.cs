@@ -50,11 +50,11 @@ namespace WebAPI.Controllers
         /// </returns>
         /// <exception cref="Exception"></exception>
         [AllowAnonymous, Produces("application/json"), HttpGet("/api/GetAllClientes")]
-        public IActionResult GetAllClientes()
+        public async Task<IActionResult> GetAllClientes()
         {
             try
             {
-                return Ok(_IserviceCliente.GetAllClientes());
+                return Ok(await _IserviceCliente.GetAllClientes());
             }
             catch (Exception ex)
             {
